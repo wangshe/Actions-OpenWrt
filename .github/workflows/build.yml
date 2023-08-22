@@ -26,9 +26,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-20.04
-
     steps:
-    - name: 查看
       uses: actions/checkout@main
 
     - name: 初始化环境
