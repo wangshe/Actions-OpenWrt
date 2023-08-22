@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: ±‡“ÎOpenWrt
+name: ±‡“Îre-sp-01b
 
 on:
   repository_dispatch:
@@ -18,7 +18,7 @@ env:
   REPO_URL: https://github.com/wangshe/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
+  CONFIG_FILE: re-sp-01b.config
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
