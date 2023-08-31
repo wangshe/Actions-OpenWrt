@@ -16,7 +16,7 @@ on:
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
-  GIST_BASE: https://gist.github.com/wangshe/7d73747dff07dcb22a155de3c458fba3/raw
+  GIST_BASE: https://gist.github.com/wangshe/677bae5be948caf145582e1d48d6b96f/raw
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: re-sp-01b.config
