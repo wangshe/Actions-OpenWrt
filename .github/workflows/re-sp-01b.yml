@@ -15,7 +15,8 @@ on:
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/wangshe/lede
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  GIST_BASE: https://gist.github.com/wangshe/7d73747dff07dcb22a155de3c458fba3/raw
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: re-sp-01b.config
@@ -50,16 +51,24 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt
+        curl --retry 3 -s "${GIST_BASE}/lede.patch" && git apply lede.patch
 
     - name: 更新插件源
       run: cd openwrt && ./scripts/feeds update -a
 
     - name: 安装插件源
-      run: cd openwrt && ./scripts/feeds install -a
+      run: |
+        cd openwrt
+        ./scripts/feeds install -a
+        cd feeds/luci
+        curl --retry 3 -s "${GIST_BASE}/luci.patch" && git apply luci.patch
 
     - name: 载入机型配置文件
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        cd openwrt/feeds/packages
+        curl --retry 3 -s "${GIST_BASE}/packages.patch" && git apply packages.patch
 
     - name: 下载依赖包
       id: package
