@@ -52,7 +52,7 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
-        curl --retry 3 -s "${GIST_BASE}/lede.patch" && git apply lede.patch
+        wget "${GIST_BASE}/lede.patch" && git apply lede.patch
 
     - name: 更新插件源
       run: cd openwrt && ./scripts/feeds update -a
@@ -62,13 +62,13 @@ jobs:
         cd openwrt
         ./scripts/feeds install -a
         cd feeds/luci
-        curl --retry 3 -s "${GIST_BASE}/luci.patch" && git apply luci.patch
+        wget "${GIST_BASE}/luci.patch" && git apply luci.patch
 
     - name: 载入机型配置文件
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt/feeds/packages
-        curl --retry 3 -s "${GIST_BASE}/packages.patch" && git apply packages.patch
+        wget "${GIST_BASE}/packages.patch" && git apply packages.patch
 
     - name: 下载依赖包
       id: package
